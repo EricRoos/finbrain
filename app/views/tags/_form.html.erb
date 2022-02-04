@@ -1,0 +1,21 @@
+<%= form_for(tag, url: taggable_tags_path(taggable_type: taggable.class.to_s.underscore, taggable_id: taggable.id) ) do |form| %>
+  <% if tag.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(tag.errors.count, "error") %> prohibited this tag from being saved:</h2>
+
+      <ul>
+        <% tag.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= form.label :value %>
+  <%= form.text_field :value, list: 'available-tag-list' %>
+  <datalist id='available-tag-list'>
+    <%= Tag.all.pluck(:value).each do |tag_val| %>
+      <option value="<%=tag_val%>" />
+    <% end %>
+  </datalist>
+  <%= form.submit %>
+<% end %>

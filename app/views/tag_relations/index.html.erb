@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Tag relations</h1>
+
+<div id="tag_relations">
+  <% @tag_relations.each do |tag_relation| %>
+    <%= render tag_relation %>
+    <p>
+      <%= link_to "Show this tag relation", tag_relation %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New tag relation", new_tag_relation_path %>

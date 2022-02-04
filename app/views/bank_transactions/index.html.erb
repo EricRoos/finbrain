@@ -3,12 +3,24 @@
 <h1>Bank transactions</h1>
 
 <div id="bank_transactions">
-  <% @bank_transactions.each do |bank_transaction| %>
-    <%= render bank_transaction %>
-    <p>
-      <%= link_to "Show this bank transaction", bank_transaction %>
-    </p>
-  <% end %>
+  <table>
+    <thead>
+      <tr>
+        <th>Posted At</th>
+        <th>Amount</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @bank_transactions.each do |bank_transaction| %>
+        <tr>
+          <td><%= bank_transaction.posted_at %></td>
+          <td><%= bank_transaction.amount %></td>
+          <td><%= bank_transaction.description %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>
 
 <%= link_to "New bank transaction", new_bank_transaction_path %>

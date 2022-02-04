@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @tag_relation %>
+
+<div>
+  <%= link_to "Edit this tag relation", edit_tag_relation_path(@tag_relation) %> |
+  <%= link_to "Back to tag relations", tag_relations_path %>
+
+  <%= button_to "Destroy this tag relation", @tag_relation, method: :delete %>
+</div>

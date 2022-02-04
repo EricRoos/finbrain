@@ -1,0 +1,27 @@
+<%= form_with(model: tag_relation) do |form| %>
+  <% if tag_relation.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(tag_relation.errors.count, "error") %> prohibited this tag_relation from being saved:</h2>
+
+      <ul>
+        <% tag_relation.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :tag_id, style: "display: block" %>
+    <%= form.text_field :tag_id %>
+  </div>
+
+  <div>
+    <%= form.label :taggable_id, style: "display: block" %>
+    <%= form.text_field :taggable_id %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

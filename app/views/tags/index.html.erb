@@ -1,0 +1,11 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Tags</h1>
+
+<%= turbo_frame_tag "tags" do %>
+  <div id="tags">
+    <% @tags.each do |tag| %>
+      <%= render tag %>
+    <% end %>
+  </div>
+<% end %>
