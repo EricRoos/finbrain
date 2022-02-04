@@ -1,0 +1,80 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  h1 {
+    @apply text-2xl;
+  }
+  h2 {
+    @apply text-xl;
+  }
+  .form-field {
+    @apply relative h-10 my-4;
+  }
+  .input {
+    @apply w-full border-gray-300 transition-all rounded-sm px-4 h-full;
+  }
+  .label {
+    @apply absolute left-2 transition-all bg-white px-1;
+  }
+
+  label {
+    top: 0%;
+    transform: translateY(-50%);
+    color: rgba(37, 99, 235, 1);
+  }
+  .empty input:not(:focus) + label {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  input:not(:focus) + label {
+    color: rgba(70, 70, 70, 1);
+  }
+  input {
+    border-width: 1px;
+  }
+  input:focus {
+    outline: none;
+    border-color: rgba(37, 99, 235, 1);
+  }
+  main {
+    @apply container mx-auto;
+  }
+
+  .table {
+    @apply w-full;
+  }
+
+  .table th {
+    @apply p-4;
+    @apply text-left;
+  }
+
+  .table thead tr {
+    @apply bg-blue-400;
+    @apply border-solid border-white border-8;
+  }
+
+  .table tbody tr {
+    @apply bg-gray-200;
+    @apply border-solid border-white border-8;
+  }
+
+  .table td {
+    @apply p-4;
+  }
+
+  .button {
+    @apply flex justify-center items-center;
+    @apply px-5 py-2 rounded-lg focus:border-4;
+  }
+
+  .button-primary {
+    @apply bg-blue-500 hover:bg-blue-600 border-blue-300 text-gray-100;
+  }
+}
+
+html {
+  font-family: 'Atkinson Hyperlegible', sans-serif;
+}

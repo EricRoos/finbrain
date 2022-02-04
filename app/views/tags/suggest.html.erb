@@ -1,0 +1,12 @@
+<%= turbo_frame_tag 'suggest_tag' do %>
+  <div class='text-sm'>
+    <div class='font-bold'>
+      Quick Add:
+    </div>
+    <div class='flex flex-wrap gap-2'>
+      <% (Tag.recent_tags - @taggable.tags.pluck(:value)).each do |tag| %>
+        <%= render partial: "quick_form", locals: { taggable: @taggable, tag: Tag.new(value: tag) } %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

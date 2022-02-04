@@ -10,12 +10,21 @@
       </ul>
     </div>
   <% end %>
-  <%= form.label :value %>
-  <%= form.text_field :value, list: 'available-tag-list', autocomplete: 'off' %>
-  <datalist id='available-tag-list'>
-    <% Tag.where.not(id: taggable.tags).pluck(:value).each do |tag_val| %>
-      <option value="<%=tag_val%>" />
-    <% end %>
-  </datalist>
-  <%= form.submit %>
+  <div class='flex py-4 gap-4 items-center'>
+    <div class='w-4/5'>
+      <div class='form-field'>
+        <%= form.text_field :value, list: 'available-tag-list', autocomplete: 'off', class: 'input' %>
+        <%= form.label "Tag", for: :value, class: 'label' %>
+
+        <datalist id='available-tag-list'>
+          <% Tag.where.not(id: taggable.tags).pluck(:value).each do |tag_val| %>
+            <option value="<%=tag_val%>" />
+          <% end %>
+        </datalist>
+      </div>
+    </div>
+    <div class='h-10 w-1/5'>
+      <%= form.submit 'Attach', class: 'button button-primary' %>
+    </div>
+  </div>
 <% end %>

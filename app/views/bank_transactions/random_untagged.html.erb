@@ -1,0 +1,6 @@
+<% if @bank_transaction.present? %>
+  <%= render @bank_transaction %>
+<% end %>
+<div>
+  <%= link_to "Find another untagged", random_untagged_bank_transactions_path %>
+</div>

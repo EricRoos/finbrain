@@ -1,6 +1,10 @@
 class BankTransactionsController < ApplicationController
   before_action :set_bank_transaction, only: %i[ show edit update destroy ]
 
+  def random_untagged
+    @bank_transaction = BankTransaction.left_outer_joins(:tag_relations).where("tag_relations.id is null").last(50).shuffle.first
+  end
+
   # GET /bank_transactions
   def index
     @bank_transactions = BankTransaction.all

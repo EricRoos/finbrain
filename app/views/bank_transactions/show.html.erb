@@ -2,15 +2,6 @@
 
 <h1>Transaction</h1>
 <%= render @bank_transaction %>
-
-<div>
-  <h2>Tags</h2>
-  <%= turbo_frame_tag "tags", src: taggable_tags_path(taggable_type: :bank_transaction, taggable_id: @bank_transaction.id) %>
-  <%= turbo_frame_tag "new_tag", src: new_taggable_tag_path(taggable_type: :bank_transaction, taggable_id: @bank_transaction.id), target: 'tags', data: { action: 'turbo:submit-end->form-refresh#refresh' , controller: 'form-refresh' } do %>
-    <%= render partial: 'tags/form', locals: { taggable: @bank_transaction, tag: Tag.new } %>
-  <% end %>
-</div>
-
 <hr/>
 <div>
   <%= link_to "Edit this bank transaction", edit_bank_transaction_path(@bank_transaction) %>

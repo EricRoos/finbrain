@@ -11,27 +11,22 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :posted_at, style: "display: block" %>
-    <%= form.date_field :posted_at %>
+  <div class="form-field">
+    <%= form.date_field :posted_at, class: 'input' %>
+    <%= form.label :posted_at, class: 'label' %>
+  </div>
+
+  <div class='form-field'>
+    <%= form.number_field :amount, class: 'input', step: '.01' %>
+    <%= form.label :amount, class: 'label' %>
+  </div>
+
+  <div class='form-field'>
+    <%= form.text_field :description, class: 'input' %>
+    <%= form.label :description, class: 'label' %>
   </div>
 
   <div>
-    <%= form.label :amount, style: "display: block" %>
-    <%= form.number_field :amount %>
-  </div>
-
-  <div>
-    <%= form.label :description, style: "display: block" %>
-    <%= form.text_field :description %>
-  </div>
-
-  <div>
-    <%= form.label :md5, style: "display: block" %>
-    <%= form.text_field :md5 %>
-  </div>
-
-  <div>
-    <%= form.submit %>
+    <%= form.submit class: 'button button-primary' %>
   </div>
 <% end %>

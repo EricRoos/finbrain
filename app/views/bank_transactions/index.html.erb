@@ -2,10 +2,12 @@
 
 <h1>Bank transactions</h1>
 
-<div id="bank_transactions">
-  <table>
+<%= link_to "New bank transaction", new_bank_transaction_path, class: 'button button-primary' %>
+
+<div id="bank_transactions" class='text-sm md:text-base overflow-auto'>
+  <table class='table'>
     <thead>
-      <tr>
+      <tr class>
         <th>Posted At</th>
         <th>Amount</th>
         <th>Description</th>
@@ -13,7 +15,7 @@
         <th></th>
       </tr>
     </thead>
-    <tbody>
+    <tbody class=''>
       <% @bank_transactions.each do |bank_transaction| %>
         <tr>
           <td><%= bank_transaction.posted_at %></td>
@@ -27,4 +29,3 @@
   </table>
 </div>
 
-<%= link_to "New bank transaction", new_bank_transaction_path %>

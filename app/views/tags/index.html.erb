@@ -3,7 +3,7 @@
 <h1>Tags</h1>
 
 <%= turbo_frame_tag "tags" do %>
-  <div id="tags">
+  <div id="tags" class='flex flex-wrap gap-2 text-sm'>
     <% @tags.each do |tag| %>
       <%= render tag %>
     <% end %>
