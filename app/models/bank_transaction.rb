@@ -1,6 +1,9 @@
 class BankTransaction < ApplicationRecord
   include Taggable
-  validates_presence_of :posted_at, :amount, :description
+
+  monetize :total_cents
+
+  validates_presence_of :posted_at, :description, :total
   before_save :compute_md5
 
   private
