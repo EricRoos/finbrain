@@ -9,6 +9,7 @@
         <th>Posted At</th>
         <th>Amount</th>
         <th>Description</th>
+        <th>Tags</th>
         <th></th>
       </tr>
     </thead>
@@ -18,6 +19,7 @@
           <td><%= bank_transaction.posted_at %></td>
           <td><%= bank_transaction.amount %></td>
           <td><%= bank_transaction.description %></td>
+          <td><%= bank_transaction.tags.pluck(:value).join(", ") %></td>
           <td><%= link_to 'View', bank_transaction %></td>
         </tr>
       <% end %>
