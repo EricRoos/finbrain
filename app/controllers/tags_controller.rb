@@ -4,7 +4,7 @@ class TagsController < ApplicationController
 
   # GET /tags
   def index
-    @tags = Tag.all
+    @tags = @taggable.tags
   end
 
   # GET /tags/1
@@ -24,7 +24,7 @@ class TagsController < ApplicationController
   def create
     @tag = Tag.new(tag_params)
 
-    if @tag.save
+    if @taggable.tag_with(@tag.value)
       redirect_to taggable_tags_path(taggable_type: @taggable.class.to_s.underscore, taggable_id: @taggable.id), notice: "Tag was successfully created."
     else
       render :new, status: :unprocessable_entity

@@ -7,8 +7,9 @@ module Taggable
   end
 
 
-  def tag_with(tag)
-    tags << Tag.find_or_create_by(value: tag)
+  def tag_with(tag_str)
+    tag = Tag.find_or_create_by(value: tag_str)
+    self.tags << tag unless tag_relations.where(tag: tag).exists?
     self.save
   end
 

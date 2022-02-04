@@ -11,9 +11,9 @@
     </div>
   <% end %>
   <%= form.label :value %>
-  <%= form.text_field :value, list: 'available-tag-list' %>
+  <%= form.text_field :value, list: 'available-tag-list', autocomplete: 'off' %>
   <datalist id='available-tag-list'>
-    <%= Tag.all.pluck(:value).each do |tag_val| %>
+    <% Tag.where.not(id: taggable.tags).pluck(:value).each do |tag_val| %>
       <option value="<%=tag_val%>" />
     <% end %>
   </datalist>
