@@ -1,7 +1,13 @@
 require 'csv'
 class BankTransactionList < ApplicationRecord
   has_one_attached :source_file
-  has_many :bank_transactions
+  has_many :bank_transactions, dependent: :destroy
+
+  after_commit :enqueue_load_from_source_file, on: :create
+
+  def enqueue_load_from_source_file
+    AnalyzeBankTransactionListJob.perform_later(self)
+  end
 
   def load_from_source_file
     source_file.open do |file|

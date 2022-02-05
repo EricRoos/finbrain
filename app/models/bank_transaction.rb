@@ -4,7 +4,14 @@ class BankTransaction < ApplicationRecord
   monetize :total_cents
 
   validates_presence_of :posted_at, :description, :total
-  before_save :compute_md5
+  validates_uniqueness_of :md5
+  before_validation :compute_md5
+
+  after_commit :enqueue_analyze_description, on: :create
+
+  def enqueue_analyze_description
+    AnalyzeBankTransactionJob.perform_later(self)
+  end
 
   def self.load_from_csv(csv_path)
   end
