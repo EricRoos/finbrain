@@ -19,9 +19,9 @@
       <% @bank_transactions.each do |bank_transaction| %>
         <tr>
           <td><%= bank_transaction.posted_at %></td>
-          <td><%= bank_transaction.amount %></td>
-          <td><div class='max-w-[10rem] max-h-4 truncate'><%= bank_transaction.description %></div></td>
-          <td><div class='max-w-[10rem] max-h-4 truncate'><%= bank_transaction.tags.pluck(:value).join(", ") %></div></td>
+          <td><%= bank_transaction.total.format %></td>
+          <td><div class='max-w-[10rem] md:max-w-[250px] truncate'><%= bank_transaction.description %></div></td>
+          <td><div class='max-w-[10rem] truncate'><%= bank_transaction.tags.pluck(:value).join(", ") %></div></td>
           <td><%= link_to 'View', bank_transaction %></td>
         </tr>
       <% end %>

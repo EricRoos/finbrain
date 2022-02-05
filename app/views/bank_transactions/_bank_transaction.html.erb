@@ -21,12 +21,24 @@
       <td colspan=2 class='p-2'><%= bank_transaction.description %></td>
     </tr>
     <tr>
-      <td colspan=2 class='p-2 text-center bg-gray-100'>Tags</td>
+      <td colspan=2 class='p-2 text-center bg-gray-100'><h2>Tags</h2></td>
     </tr>
     <tr>
       <td colspan=2 class='p-2'>
         <%= turbo_frame_tag "tags", src: taggable_tags_path(taggable_type: :bank_transaction, taggable_id: @bank_transaction.id) %>
         <%= turbo_frame_tag "suggest_tag", src: new_taggable_tag_path(taggable_type: :bank_transaction, taggable_id: @bank_transaction.id, suggest: true), target: 'tags', data: { action: 'turbo:submit-end->form-refresh#refresh' , controller: 'form-refresh' } %>
+        <%= turbo_frame_tag 'analyzed_description_tokens', target: 'tags', data: { action: 'turbo:submit-end->form-refresh#re    fresh' , controller: 'form-refresh' } do %>
+          <div class=''>
+            <div class='font-bold'>
+              Suggested Tags:
+            </div>
+            <div class='flex flex-wrap gap-2 text-sm'>
+              <% (@bank_transaction.analyzed_description_tokens- @bank_transaction.tags.pluck(:value)).each do |tag| %>
+                <%= render partial: "tags/quick_form", locals: { taggable: @bank_transaction, tag: Tag.new(value: tag) } %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
         <%= turbo_frame_tag "new_tag", src: new_taggable_tag_path(taggable_type: :bank_transaction, taggable_id: @bank_transaction.id), target: 'tags', data: { action: 'turbo:submit-end->form-refresh#refresh' , controller: 'form-refresh' } %>
       </td>
     </tr>
