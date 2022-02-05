@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :bank_transaction_lists
 
   resources ':taggable_type', as: 'taggable', only: [] do
     resources :tags

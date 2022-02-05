@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Bank transaction lists</h1>
+
+<div id="bank_transaction_lists">
+  <% @bank_transaction_lists.each do |bank_transaction_list| %>
+    <%= render bank_transaction_list %>
+    <p>
+      <%= link_to "Show this bank transaction list", bank_transaction_list %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New bank transaction list", new_bank_transaction_list_path %>

@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @bank_transaction_list %>
+
+<div>
+  <%= link_to "Edit this bank transaction list", edit_bank_transaction_list_path(@bank_transaction_list) %> |
+  <%= link_to "Back to bank transaction lists", bank_transaction_lists_path %>
+
+  <%= button_to "Destroy this bank transaction list", @bank_transaction_list, method: :delete %>
+</div>

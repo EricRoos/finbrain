@@ -7,9 +7,6 @@ class BankTransaction < ApplicationRecord
   before_save :compute_md5
 
   def self.load_from_csv(csv_path)
-    CSV.open(csv_path).map do |line|
-      new(description: line[4], total: line[1], posted_at: line[0])   
-    end
   end
 
   def analyzed_description_tokens
