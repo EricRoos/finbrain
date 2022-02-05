@@ -9,17 +9,13 @@ class BankTransaction < ApplicationRecord
   def self.load_from_csv(csv_path)
   end
 
-  def analyzed_description_tokens
-    analyze_description
-  end
-
   def analyze_description
     nlp_conn = Faraday.new(url: 'http://localhost:9000')
     response = nlp_conn.post('/?properties={"annotators":"ner","outputFormat":"json"}') do |req|
       req.body = description
     end
     resp = JSON.parse(response.body)
-    resp["sentences"].map { |s| 
+    self.analyzed_tokens = resp["sentences"].map { |s| 
       puts s["tokens"]
       s["tokens"].select { |t|
         t["pos"] == 'NNP'  && (
@@ -27,12 +23,14 @@ class BankTransaction < ApplicationRecord
           t["ner"] == 'CITY' || 
           t["ner"] == 'LOCATION' || 
           t["ner"] == 'ORGANIZATION' || 
+          t["ner"] == 'URL' || 
           t["ner"] == 'O'
         )
       }.map{ |i|
         i["lemma"]
       }
     }.flatten.map(&:downcase)
+    self.save
   end
   private
 

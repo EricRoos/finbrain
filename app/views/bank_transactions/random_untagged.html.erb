@@ -1,7 +1,9 @@
 <h1>Transaction Details</h1>
+<hr class='my-4'/>
 <% if @bank_transaction.present? %>
   <%= render @bank_transaction %>
 <% end %>
+<hr class='my-8'/>
 <div>
-  <%= link_to "Find another untagged", random_untagged_bank_transactions_path %>
+  <%= link_to "Find another untagged", random_untagged_bank_transactions_path, class: 'button button-primary' %>
 </div>

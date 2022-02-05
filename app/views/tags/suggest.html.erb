@@ -1,7 +1,7 @@
 <%= turbo_frame_tag 'suggest_tag' do %>
   <div class=''>
     <div class='font-bold'>
-      Quick Add:
+      Recent Tags:
     </div>
     <div class='flex flex-wrap gap-2 text-sm'>
       <% (Tag.recent_tags - @taggable.tags.pluck(:value)).each do |tag| %>
