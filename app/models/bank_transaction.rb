@@ -5,6 +5,7 @@ class BankTransaction < ApplicationRecord
 
   validates_presence_of :posted_at, :description, :total
   validates_uniqueness_of :md5
+  has_many :similarity_matches, foreign_key: :source_id
   before_validation :compute_md5
 
   after_commit :enqueue_analyze_description, on: :create
@@ -16,14 +17,11 @@ class BankTransaction < ApplicationRecord
   def self.load_from_csv(csv_path)
   end
 
-  def similar_to?(bank_transaction)
-    String::Similarity.cosine(description, bank_transaction.description) > 0.90
-  end
 
   def analyze_description
     nlp_conn = Faraday.new(url: 'http://localhost:9000')
     response = nlp_conn.post('/?properties={"annotators":"ner","outputFormat":"json"}') do |req|
-      req.body = description
+      req.body = description.gsub(/PURCHASE AUTHORIZED ON/, '')
     end
     resp = JSON.parse(response.body)
     self.analyzed_tokens = resp["sentences"].map { |s| 

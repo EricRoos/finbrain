@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_05_061246) do
+ActiveRecord::Schema.define(version: 2022_02_06_225221) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,6 +61,16 @@ ActiveRecord::Schema.define(version: 2022_02_05_061246) do
     t.index ["bank_transaction_list_id"], name: "index_bank_transactions_on_bank_transaction_list_id"
   end
 
+  create_table "similarity_matches", force: :cascade do |t|
+    t.bigint "source_id", null: false
+    t.bigint "destination_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.float "score"
+    t.index ["destination_id"], name: "index_similarity_matches_on_destination_id"
+    t.index ["source_id"], name: "index_similarity_matches_on_source_id"
+  end
+
   create_table "tag_relations", force: :cascade do |t|
     t.bigint "tag_id", null: false
     t.string "taggable_type", null: false
@@ -80,5 +90,7 @@ ActiveRecord::Schema.define(version: 2022_02_05_061246) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "bank_transactions", "bank_transaction_lists"
+  add_foreign_key "similarity_matches", "bank_transactions", column: "destination_id"
+  add_foreign_key "similarity_matches", "bank_transactions", column: "source_id"
   add_foreign_key "tag_relations", "tags"
 end
