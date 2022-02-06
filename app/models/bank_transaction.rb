@@ -36,9 +36,13 @@ class BankTransaction < ApplicationRecord
       }.map{ |i|
         i["lemma"]
       }
-    }.flatten.map(&:downcase)
+    }.flatten.map(&:downcase).map(&:strip)
+    .reject { |r| r.size < 4 }
+    .reject { |r| !r.match(/.*[a-z]+.*/) }
+    .reject { |r| r.match(/[a-z]\d+/) }
     self.save
   end
+
   private
 
   def compute_md5
