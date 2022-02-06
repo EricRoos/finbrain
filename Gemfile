@@ -79,3 +79,5 @@ gem "faraday", "~> 2.2"
 
 gem "kaminari", "~> 1.2"
 
+
+gem "draper", "~> 4.0"

@@ -1,7 +1,7 @@
 Given('the user has a list of {string}') do |class_name|
   @data ||= {}
   class_sym = class_name.singularize.downcase.gsub(' ', '_').to_sym
-  @data[class_name] = FactoryBot.create_list(class_sym, 5)
+  @data[class_name] = FactoryBot.create_list(class_sym, 5).map(&:decorate)
 end
 
 Given('the {string} has a list of {string}') do |owner, class_name|
@@ -10,7 +10,7 @@ Given('the {string} has a list of {string}') do |owner, class_name|
   FactoryBot.build_list(class_sym.to_sym, 5).each do |built|
     @data[owner].send(class_sym.to_s.pluralize.to_sym) << built
   end
-  @data[class_name] = @data[owner].send(class_sym.to_s.pluralize.to_sym)
+  @data[class_name] = @data[owner].send(class_sym.to_s.pluralize.to_sym).map(&:decorate)
 end
 
 
@@ -43,7 +43,7 @@ end
 Given('the user has a {string}') do |class_name|
   @data ||= {}
   class_sym = class_name.singularize.downcase.gsub(' ', '_').to_sym
-  @data[class_name] = FactoryBot.create(class_sym)
+  @data[class_name] = FactoryBot.create(class_sym).decorate
 end
 
 When('the user fills in {string} with {string}') do |field, value| 

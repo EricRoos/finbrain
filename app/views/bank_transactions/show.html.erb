@@ -2,7 +2,7 @@
 
 <h1>Transaction Details</h1>
 <hr class='my-4'/>
-<%= render @bank_transaction %>
+<%= render @bank_transaction.decorate %>
 <hr/>
 <div>
   <%= link_to "Edit this bank transaction", edit_bank_transaction_path(@bank_transaction) %>
