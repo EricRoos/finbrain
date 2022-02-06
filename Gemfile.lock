@@ -309,6 +309,7 @@ GEM
       sprockets (>= 3.0.0)
     stimulus-rails (1.0.2)
       railties (>= 6.0.0)
+    string-similarity (2.1.0)
     strscan (3.0.1)
     sys-uname (1.2.2)
       ffi (~> 1.1)
@@ -355,6 +356,7 @@ DEPENDENCIES
   selenium-webdriver (~> 4.1)
   sprockets-rails
   stimulus-rails
+  string-similarity (~> 2.1)
   turbo-rails
   tzinfo-data
   web-console

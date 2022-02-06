@@ -81,3 +81,5 @@ gem "kaminari", "~> 1.2"
 
 
 gem "draper", "~> 4.0"
+
+gem "string-similarity", "~> 2.1"

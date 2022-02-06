@@ -16,6 +16,10 @@ class BankTransaction < ApplicationRecord
   def self.load_from_csv(csv_path)
   end
 
+  def similar_to?(bank_transaction)
+    String::Similarity.cosine(description, bank_transaction.description) > 0.90
+  end
+
   def analyze_description
     nlp_conn = Faraday.new(url: 'http://localhost:9000')
     response = nlp_conn.post('/?properties={"annotators":"ner","outputFormat":"json"}') do |req|
