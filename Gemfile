@@ -48,6 +48,10 @@ gem "bootsnap", require: false
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
+  gem "factory_bot_rails", "~> 6.2"
+  gem "rspec-rails", "~> 5.1"
+  gem "faker", "~> 2.19"
+  gem "selenium-webdriver", "~> 4.1"
 end
 
 group :development do
@@ -61,6 +65,11 @@ group :development do
   # gem "spring"
 end
 
+group :test do
+  gem "cucumber-rails", github: "cucumber/cucumber-rails", branch: "main"
+  gem 'database_cleaner'
+end
+
 
 gem "cssbundling-rails", "~> 1.0"
 
@@ -69,3 +78,4 @@ gem "money-rails", "~> 1.15"
 gem "faraday", "~> 2.2"
 
 gem "kaminari", "~> 1.2"
+

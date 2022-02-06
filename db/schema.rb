@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(version: 2022_02_05_061246) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "total_cents", default: 0, null: false
-    t.bigint "bank_transaction_list_id", null: false
+    t.bigint "bank_transaction_list_id"
     t.text "analyzed_tokens", default: [], array: true
     t.index ["bank_transaction_list_id"], name: "index_bank_transactions_on_bank_transaction_list_id"
   end

@@ -23,7 +23,7 @@ class BankTransaction < ApplicationRecord
     end
     resp = JSON.parse(response.body)
     self.analyzed_tokens = resp["sentences"].map { |s| 
-      puts s["tokens"]
+      puts s["tokens"] if ENV['DEBUG_NLP'].present?
       s["tokens"].select { |t|
         t["pos"] == 'NNP'  && (
           t["ner"] == 'STATE_OR_PROVINCE' || 

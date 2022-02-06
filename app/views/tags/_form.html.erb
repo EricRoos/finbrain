@@ -14,7 +14,7 @@
     <div class='w-4/5'>
       <div class='form-field'>
         <%= form.text_field :value, list: 'available-tag-list', autocomplete: 'off', class: 'input', required: true %>
-        <%= form.label "Tag", for: :value, class: 'label' %>
+        <%= form.label "Tag", for: :tag_value, class: 'label' %>
 
         <datalist id='available-tag-list'>
           <% Tag.where.not(id: taggable.tags).pluck(:value).each do |tag_val| %>

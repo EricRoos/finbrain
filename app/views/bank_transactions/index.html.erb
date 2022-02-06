@@ -37,6 +37,9 @@
   </div>
   <div id="bank_transactions" class='text-sm md:text-base overflow-auto flex-grow'>
     <%= paginate @bank_transactions %>
+    <% if @bank_transactions.empty? %>
+      No transactions available
+    <% end %>
     <table class='table'>
       <thead>
         <tr class>
