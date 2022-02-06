@@ -32,6 +32,7 @@
       <%= link_to "Upload Transactions", new_bank_transaction_list_path, class: 'button button-primary' %>
       <%= link_to "Add Transaction", new_bank_transaction_path, class: 'button button-primary' %>
       <%= link_to "Search Transactions", bank_transactions_path, class: 'button button-primary' %>
+      <%= link_to "Tag Random", random_untagged_bank_transactions_path, class: 'button button-primary' %>
     </div>
   </div>
   <div id="bank_transactions" class='text-sm md:text-base overflow-auto flex-grow'>

@@ -13,6 +13,7 @@ class BankTransactionsController < ApplicationController
       @bank_transactions = @bank_transactions
         .where(id: TagRelation.where(tag_id: params[:tags]).where(taggable_type: 'BankTransaction').pluck(:taggable_id))
     end
+    @bank_transactions = @bank_transactions.page(params.fetch(:page,1))
   end
 
   # GET /bank_transactions/1
