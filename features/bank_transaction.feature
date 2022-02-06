@@ -20,6 +20,7 @@ Feature: Bank Transaction
     And a tag exists
     And the "tag" has a "value" of "bar"
     And the user is on the "bank transactions" page
+    And the user sees the "bank transaction"
     When the user clicks on "bar"
     Then the user does not see the "bank transaction"
 

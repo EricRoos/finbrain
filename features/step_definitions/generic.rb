@@ -86,3 +86,8 @@ Then('the user does not see the {string}') do |data_class|
   expect{ page.find(id: dom_id(model)) }.to raise_error(Capybara::ElementNotFound)
 end
 
+
+Given('the user sees the {string}') do |data_class|
+  expect{ page.find(id: dom_id(model)) }.to_not raise_error(Capybara::ElementNotFound)
+end
+
