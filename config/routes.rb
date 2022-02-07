@@ -1,4 +1,7 @@
+
+require 'sidekiq/web'
 Rails.application.routes.draw do
+  mount Sidekiq::Web => '/sidekiq'
   resources :bank_transaction_lists
 
   resources ':taggable_type', as: 'taggable', only: [] do

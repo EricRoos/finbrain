@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_06_225221) do
+ActiveRecord::Schema.define(version: 2022_02_06_235143) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(version: 2022_02_06_225221) do
     t.integer "total_cents", default: 0, null: false
     t.bigint "bank_transaction_list_id"
     t.text "analyzed_tokens", default: [], array: true
+    t.datetime "analyzed_at", precision: 6
     t.index ["bank_transaction_list_id"], name: "index_bank_transactions_on_bank_transaction_list_id"
   end
 

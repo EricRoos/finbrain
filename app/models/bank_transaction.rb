@@ -42,6 +42,7 @@ class BankTransaction < ApplicationRecord
     .reject { |r| r.size < 4 }
     .reject { |r| !r.match(/.*[a-z]+.*/) }
     .reject { |r| r.match(/[a-z]\d+/) }
+    self.analyzed_at = DateTime.now
     self.save
   end
 

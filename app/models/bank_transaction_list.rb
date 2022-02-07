@@ -12,7 +12,10 @@ class BankTransactionList < ApplicationRecord
   def load_from_source_file
     source_file.open do |file|
       CSV.new(file.read).map do |line|
-        bank_transactions << BankTransaction.new(description: line[4], total: line[1], posted_at: line[0])   
+        description = line[4]
+        description.gsub!(/PURCHASE AUTHORIZED ON \d{1,2}\/\d{1,2}/,'')
+        description.gsub!(/RECURRING PAYMENT AUTHORIZED ON \d{1,2}\/\d{1,2}/,'')
+        bank_transactions << BankTransaction.new(description: description.strip, total: line[1], posted_at: Date.strptime(line[0], '%m/%d/%Y'))   
       end
     end
     self.save

@@ -5,7 +5,7 @@ class BankTransactionDecorator < ApplicationDecorator
   # `helpers` (aka `h`). You can override attributes, for example:
   #
   def posted_at
-    object.posted_at.strftime("%m/%d/%y")
+    object.posted_at.strftime("%m/%d/%Y")
   end
 
   def total
