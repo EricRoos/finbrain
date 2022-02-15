@@ -1,24 +1,9 @@
-# README
+# FinBrain
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Upload your csv formatted bank statements and have the system with the help of Stanford nlp livrsry
+Assign tags to your bank transactions so that you can track where your money is spent.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Utilizes 
+* Rails
+* Hotwire turbo 
+* Sidekiq 
