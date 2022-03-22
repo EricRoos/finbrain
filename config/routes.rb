@@ -4,6 +4,11 @@ Rails.application.routes.draw do
   mount Sidekiq::Web => '/sidekiq'
   resources :bank_transaction_lists
 
+  resource :tag_manager, only: [ :show ] do
+    collection do
+      post :replace_with
+    end
+  end
   resources ':taggable_type', as: 'taggable', only: [] do
     resources :tags
   end
@@ -21,5 +26,5 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
-  # root "articles#index"
+  root "bank_transactions#index"
 end

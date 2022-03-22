@@ -17,14 +17,18 @@
     </div>
     <div class='p-2'>
       <h2>Filter</h2>
-      <ul>
-        <% Tag.all.each do |tag| %>
-          <% q = [].concat(params[:tags] || []).map(&:to_i) %>
-          <% if q.include?(tag.id) %>
-            <li><%= link_to "&times; #{tag.value}".html_safe, bank_transactions_path(tags: q.difference([tag.id])) %></li>
-          <% else %>
-            <li><%= link_to tag.value, bank_transactions_path(tags: q.concat([tag.id])) %></li>
+      <% if params[:tags]&.any? %>
+        <ul>
+          <% Tag.where(id: params[:tags]).order(value: :asc).each do |tag| %>
+            <% these_tags = [].concat(params[:tags] || []) %>
+            <li><%= link_to "&times; #{tag.value}".html_safe, bank_transactions_path(tags: these_tags.difference([tag.id.to_s])) %></li>
           <% end %>
+        </ul>
+      <% end %>
+      <ul>
+        <% Tag.where.not(id: (params[:tags] || [])).order(value: :asc).each do |tag| %>
+          <% these_tags = [].concat(params[:tags] || []) %>
+          <li><%= link_to tag.value, bank_transactions_path(tags: these_tags.concat([tag.id])) %></li>
         <% end %>
       </ul>
     </div>
@@ -35,35 +39,37 @@
       <%= link_to "Tag Random", random_untagged_bank_transactions_path, class: 'button button-primary' %>
     </div>
   </div>
-  <div id="bank_transactions" class='text-sm md:text-base overflow-auto flex-grow'>
-    <%= paginate @bank_transactions %>
-    <% if @bank_transactions.empty? %>
-      No transactions available
-    <% end %>
-    <table class='table'>
-      <thead>
-        <tr class>
-          <th>Posted At</th>
-          <th>Amount</th>
-          <th>Description</th>
-          <th>Tags</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody class=''>
-        <% @bank_transactions.map(&:decorate).each do |bank_transaction| %>
-          <tr id="<%= dom_id(bank_transaction) %>">
-            <td><%= bank_transaction.posted_at %></td>
-            <td><%= bank_transaction.total %></td>
-            <td><div class='max-w-[10rem] md:max-w-[250px] truncate'><%= bank_transaction.description %></div></td>
-            <td><div class='max-w-[10rem] truncate'><%= bank_transaction.tags.pluck(:value).join(", ") %></div></td>
-            <td><%= link_to 'View', bank_transaction %></td>
+  <%= turbo_frame_tag 'bank_transactions' do %>
+    <div id="bank_transactions" class='text-sm md:text-base overflow-auto flex-grow'>
+      <%= paginate @bank_transactions %>
+      <% if @bank_transactions.empty? %>
+        No transactions available
+      <% end %>
+      <table class='table'>
+        <thead>
+          <tr class>
+            <th>Posted At</th>
+            <th>Amount</th>
+            <th>Description</th>
+            <th>Tags</th>
+            <th></th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
-    <div>
-      Total: <%= @total.format %>
+        </thead>
+        <tbody class=''>
+          <% @bank_transactions.map(&:decorate).each do |bank_transaction| %>
+            <tr id="<%= dom_id(bank_transaction) %>">
+              <td><%= bank_transaction.posted_at %></td>
+              <td><%= bank_transaction.total %></td>
+              <td><div title="<%= bank_transaction.description %>" class='max-w-[10rem] md:max-w-[250px] truncate'><%= bank_transaction.description %></div></td>
+              <td><div class='max-w-[10rem] truncate'><%= bank_transaction.tags.pluck(:value).join(", ") %></div></td>
+              <td><%= link_to 'View', bank_transaction %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <div>
+        Total: <%= @total.format %>
+      </div>
     </div>
-  </div>
+  <% end %>
 </div>

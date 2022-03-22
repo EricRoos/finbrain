@@ -1,0 +1,70 @@
+<table class='table'>
+  <thead>
+    <tr class>
+      <th>Tag</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody class=''>
+    <% @tags.each do |tag| %>
+      <tr id="<%= dom_id(tag) %>">
+        <td><%= tag.value %></td>
+        <td>
+          <div data-controller='modal'>
+            <button data-action="click->modal#open">View Transactions</button>
+            <div data-modal-target='modal' class="fixed hidden z-50 inset-0 bg-gray-900 bg-opacity-60 overflow-y-auto h-full w-full px-4">
+              <div class="relative top-40 mx-auto shadow-lg rounded-md bg-white w-3/4">
+                <!-- Modal header -->
+                <div class="flex justify-between items-center bg-gray-100 text-xl rounded-t-md px-4 py-2">
+                    <h3>Transactions for <b><%= tag.value%></b></h3>
+                    <button data-action='click->modal#close'>&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="p-4 overflow-y-scroll max-h-[400px]">
+                  <%= turbo_frame_tag "bank_transactions", src: bank_transactions_path(tags: [tag.id]), loading: :lazy %>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="px-4 py-2 flex justify-end items-center space-x-4">
+                  <button class="bg-gray-100 px-4 py-2 rounded-md hover:bg-blue-700 transition" data-action='click->modal#close'>Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div data-controller='modal'>
+            <button data-action="click->modal#open">Replace</button>
+            <div data-modal-target='modal' class="fixed hidden z-50 inset-0 bg-gray-900 bg-opacity-60 overflow-y-auto h-full w-full px-4">
+              <div class="relative top-40 mx-auto shadow-lg rounded-md bg-white max-w-md">
+                <!-- Modal header -->
+                <div class="flex justify-between items-center bg-gray-100 text-xl rounded-t-md px-4 py-2">
+                    <h3>Replace Tag</h3>
+                    <button data-action='click->modal#close'>&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="p-4">
+                  <%= form_with(url: replace_with_tag_manager_path) do |form| %>
+                    <%= form.hidden_field :tag_id, value: tag.id %>
+                    <div class='form-field'>
+                      <%= form.label :new_tag_value, class: 'label' %>
+                      <%= form.text_field :new_tag_value, class: 'input' %>
+                    </div>
+                    <div>
+                      <%= form.submit class: 'button button-primary w-full' %>
+                    </div>
+                  <% end %>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="px-4 py-2 flex justify-end items-center space-x-4">
+                  <button class="bg-gray-100 px-4 py-2 rounded-md hover:bg-blue-700 transition" data-action='click->modal#close'>Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
