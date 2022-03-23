@@ -57,11 +57,12 @@
         </thead>
         <tbody class=''>
           <% @bank_transactions.map(&:decorate).each do |bank_transaction| %>
+            <% tag_str = bank_transaction.tags.pluck(:value).join(", ") %>
             <tr id="<%= dom_id(bank_transaction) %>">
               <td><%= bank_transaction.posted_at %></td>
               <td><%= bank_transaction.total %></td>
               <td><div title="<%= bank_transaction.description %>" class='max-w-[10rem] md:max-w-[250px] truncate'><%= bank_transaction.description %></div></td>
-              <td><div class='max-w-[10rem] truncate'><%= bank_transaction.tags.pluck(:value).join(", ") %></div></td>
+              <td><div title="<%= tag_str %>" class='max-w-[10rem] truncate'><%= tag_str %></div></td>
               <td><%= link_to 'View', bank_transaction %></td>
             </tr>
           <% end %>
