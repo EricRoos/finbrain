@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   mount Sidekiq::Web => '/sidekiq'
   resources :bank_transaction_lists
 
+  resources :tags, only: [ :destroy ]
+
   resource :tag_manager, only: [ :show ] do
     collection do
       post :replace_with

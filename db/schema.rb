@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_23_140537) do
+ActiveRecord::Schema.define(version: 2022_03_23_140915) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(version: 2022_03_23_140537) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["tag_id"], name: "index_tag_relations_on_tag_id"
+    t.index ["taggable_type", "taggable_id", "tag_id"], name: "index_tag_relations_on_taggable_type_and_taggable_id_and_tag_id", unique: true
     t.index ["taggable_type", "taggable_id"], name: "index_tag_relations_on_taggable"
   end
 

@@ -39,7 +39,7 @@
       <%= link_to "Tag Random", random_untagged_bank_transactions_path, class: 'button button-primary' %>
     </div>
   </div>
-  <%= turbo_frame_tag 'bank_transactions' do %>
+  <%= turbo_frame_tag 'bank_transactions', target: '_top' do %>
     <div id="bank_transactions" class='text-sm md:text-base overflow-auto flex-grow'>
       <%= paginate @bank_transactions %>
       <% if @bank_transactions.empty? %>

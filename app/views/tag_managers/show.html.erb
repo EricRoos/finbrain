@@ -1,6 +1,15 @@
+<div class='flex flex-col'>
+  <a href='#'>Sort By Name Asc</a>
+  <a href='#'>Sort By Name Desc</a>
+  <a href='#'>Sort By Record Count Asc</a>
+  <a href='#'>Sort By Record Count Desc</a>
+</div>
+<hr/>
+<%= paginate @tags %>
 <table class='table text-sm'>
   <thead>
     <tr class>
+      <th>Record Count</th>
       <th>Tag</th>
       <th colspan=3><div class='w-full text-center'>Actions</div></th>
     </tr>
@@ -8,6 +17,7 @@
   <tbody class=''>
     <% @tags.each do |tag| %>
       <tr id="<%= dom_id(tag) %>">
+        <td><%= tag.transaction_count %></td>
         <td><%= tag.value %></td>
         <td>
           <div class='grid grid-cols-4 divide-x divide-black'>
@@ -95,7 +105,9 @@
                 </div>
               </div>
             </div>
-            <button>Remove</button>
+            <div class='flex justify-center'>
+              <%= button_to 'Remove', tag_path(tag), method: :delete %>
+            </div>
           </div>
         </td>
       </tr>

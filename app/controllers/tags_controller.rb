@@ -46,8 +46,13 @@ class TagsController < ApplicationController
 
   # DELETE /tags/1
   def destroy
-    TagRelation.where(tag: @tag, taggable: @taggable).destroy_all
-    redirect_to taggable_tags_path(taggable_type: @taggable.class.to_s.underscore, taggable_id: @taggable.id), notice: "Tag was successfully removed."
+    if @taggable.present?
+      TagRelation.where(tag: @tag, taggable: @taggable).destroy_all
+      redirect_to taggable_tags_path(taggable_type: @taggable.class.to_s.underscore, taggable_id: @taggable.id), notice: "Tag was successfully removed."
+    else
+      Tag.find(params[:id]).destroy
+      redirect_to request.referer, notice: 'Tag removed'
+    end
   end
 
   private
