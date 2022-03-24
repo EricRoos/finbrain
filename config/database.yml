@@ -20,9 +20,11 @@ default: &default
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: postgres
-  password: mysecretpassword
-  host: 0.0.0.0
+  port: <%= Rails.application.credentials.config[:database][:port] rescue "" %>
+  #user: <%= Rails.application.credentials.config[:database][:user] rescue "postgres" %>
+  username: <%= Rails.application.credentials.config[:database][:user] rescue "postgres" %>
+  host: <%= Rails.application.credentials.config[:database][:host] rescue ENV.fetch("DB_HOST"){"0.0.0.0"} %>
+  password: <%= Rails.application.credentials.config[:database][:password] rescue "mysecretpassword"%>
 
 development:
   <<: *default
@@ -84,6 +86,4 @@ test:
 #
 production:
   <<: *default
-  database: fin_brain_production
-  username: fin_brain
-  password: <%= ENV["FIN_BRAIN_DATABASE_PASSWORD"] %>
+  database: <%= Rails.application.credentials.config[:database][:name] rescue ""%>
