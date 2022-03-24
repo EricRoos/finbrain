@@ -1,4 +1,4 @@
-<%= form_for(tag, url: taggable_tags_path(taggable_type: taggable.class.to_s.underscore, taggable_id: taggable.id) ) do |form| %>
+<%= form_for(tag, url: taggable_tags_path(taggable_type: 'bank_transaction', taggable_id: taggable.id) ) do |form| %>
   <%= form.hidden_field :value %>
   <%= form.submit tag.value, class: 'bg-transparent border-0 underline cursor-pointer' %>
 <% end %>

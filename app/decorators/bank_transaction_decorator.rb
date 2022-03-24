@@ -12,4 +12,8 @@ class BankTransactionDecorator < ApplicationDecorator
     object.total.format
   end
 
+  def reviewed
+    object.reviewed ? 'Yes' : 'No'
+  end
+
 end

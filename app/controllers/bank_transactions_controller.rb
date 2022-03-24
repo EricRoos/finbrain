@@ -1,8 +1,12 @@
 class BankTransactionsController < ApplicationController
-  before_action :set_bank_transaction, only: %i[ show edit update destroy ]
+  before_action :set_bank_transaction, only: %i[ show edit update destroy approval ]
 
   def random_untagged
     @bank_transaction = BankTransaction.left_outer_joins(:tag_relations).where("tag_relations.id is null").last(50).shuffle.first
+  end
+
+  def random_unreviewed
+    @bank_transaction = BankTransaction.not_reviewed.limit(30).shuffle.first
   end
 
   # GET /bank_transactions
@@ -45,7 +49,7 @@ class BankTransactionsController < ApplicationController
   # PATCH/PUT /bank_transactions/1
   def update
     if @bank_transaction.update(bank_transaction_params)
-      redirect_to @bank_transaction, notice: "Bank transaction was successfully updated."
+      redirect_to request.referer, notice: "Bank transaction was successfully updated."
     else
       render :edit, status: :unprocessable_entity
     end
@@ -65,6 +69,6 @@ class BankTransactionsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def bank_transaction_params
-      params.require(:bank_transaction).permit(:posted_at, :amount, :description, :md5, :total)
+      params.require(:bank_transaction).permit(:posted_at, :amount, :description, :total, :reviewed)
     end
 end

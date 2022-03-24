@@ -10,6 +10,9 @@ class BankTransaction < ApplicationRecord
 
   after_commit :enqueue_analyze_description, on: :create
 
+  scope :reviewed, -> { where(reviewed: true) }
+  scope :not_reviewed, -> { where(reviewed: false) }
+
   def enqueue_analyze_description
     AnalyzeBankTransactionJob.perform_later(self)
   end

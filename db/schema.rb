@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_23_140915) do
+ActiveRecord::Schema.define(version: 2022_03_24_151318) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,7 +59,9 @@ ActiveRecord::Schema.define(version: 2022_03_23_140915) do
     t.bigint "bank_transaction_list_id"
     t.text "analyzed_tokens", default: [], array: true
     t.datetime "analyzed_at", precision: 6
+    t.boolean "reviewed", default: false
     t.index ["bank_transaction_list_id"], name: "index_bank_transactions_on_bank_transaction_list_id"
+    t.index ["reviewed"], name: "index_bank_transactions_on_reviewed"
   end
 
   create_table "similarity_matches", force: :cascade do |t|

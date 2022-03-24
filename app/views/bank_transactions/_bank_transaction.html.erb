@@ -1,46 +1,56 @@
-<div id="<%= dom_id bank_transaction %>">
-  <table class='w-full'>
-    <tr>
-      <td class='bg-gray-100'>Posted at:</td>
-      <td>
-        <%= bank_transaction.posted_at %>
-      </td>
-    </tr>
+<%= turbo_frame_tag bank_transaction do %>
+  <div>
+    <div class='pb-4'>
+      <%= turbo_frame_tag (dom_id(bank_transaction) + 'approval'), src: approval_bank_transaction_path(bank_transaction), data: { action: 'turbo:submit-end->form-refresh#refresh' , controller: 'form-refresh' } %>
+    </div> 
+    <table class='w-full'>
+      <tr>
+        <td class='bg-gray-100'>Approved:</td>
+        <td>
+          <%= bank_transaction.reviewed %>
+        </td>
+      </tr>
+      <tr>
+        <td class='bg-gray-100'>Posted at:</td>
+        <td>
+          <%= bank_transaction.posted_at %>
+        </td>
+      </tr>
 
-    <tr>
-      <td class='bg-gray-100'>Total: </td>
-      <td>
-        <%= bank_transaction.total %>
-      </td>
-    </tr>
-
-    <tr>
-      <td colspan=2 class='p-2 text-center bg-gray-100'>Description</td>
-    </tr>
-    <tr>
-      <td colspan=2 class='p-2'><%= bank_transaction.description %></td>
-    </tr>
-    <tr>
-      <td colspan=2 class='p-2 text-center bg-gray-100'><h2>Tags</h2></td>
-    </tr>
-    <tr>
-      <td colspan=2 class='p-2'>
-        <%= turbo_frame_tag "tags", src: taggable_tags_path(taggable_type: :bank_transaction, taggable_id: @bank_transaction.id) %>
-        <%= turbo_frame_tag 'analyzed_description_tokens', target: 'tags', data: { action: 'turbo:submit-end->form-refresh#re    fresh' , controller: 'form-refresh' } do %>
-          <div class=''>
-            <div class='font-bold'>
-              Suggested Tags:
+      <tr>
+        <td class='bg-gray-100'>Total: </td>
+        <td>
+          <%= bank_transaction.total %>
+        </td>
+      </tr>
+      <tr>
+        <td colspan=2 class='p-2 text-center bg-gray-100'>Description</td>
+      </tr>
+      <tr>
+        <td colspan=2 class='p-2'><%= bank_transaction.description %></td>
+      </tr>
+      <tr>
+        <td colspan=2 class='p-2 text-center bg-gray-100'><h2>Tags</h2></td>
+      </tr>
+      <tr>
+        <td colspan=2 class='p-2'>
+          <%= turbo_frame_tag "tags", src: taggable_tags_path(taggable_type: :bank_transaction, taggable_id: bank_transaction.id) %>
+          <%= turbo_frame_tag 'analyzed_description_tokens', target: 'tags', data: { action: 'turbo:submit-end->form-refresh#refresh' , controller: 'form-refresh' } do %>
+            <div class=''>
+              <div class='font-bold'>
+                Suggested Tags:
+              </div>
+              <div class='flex flex-wrap gap-2 text-sm'>
+                <% (bank_transaction.analyzed_tokens - bank_transaction.tags.pluck(:value)).each do |tag| %>
+                  <%= render partial: "tags/quick_form", locals: { taggable: bank_transaction, tag: Tag.new(value: tag) } %>
+                <% end %>
+              </div>
             </div>
-            <div class='flex flex-wrap gap-2 text-sm'>
-              <% (@bank_transaction.analyzed_tokens - @bank_transaction.tags.pluck(:value)).each do |tag| %>
-                <%= render partial: "tags/quick_form", locals: { taggable: @bank_transaction, tag: Tag.new(value: tag) } %>
-              <% end %>
-            </div>
-          </div>
-        <% end %>
-        <%= turbo_frame_tag "suggest_tag", src: new_taggable_tag_path(taggable_type: :bank_transaction, taggable_id: @bank_transaction.id, suggest: true), target: 'tags', data: { action: 'turbo:submit-end->form-refresh#refresh' , controller: 'form-refresh' } %>
-        <%= turbo_frame_tag "new_tag", src: new_taggable_tag_path(taggable_type: :bank_transaction, taggable_id: @bank_transaction.id), target: 'tags', data: { action: 'turbo:submit-end->form-refresh#refresh' , controller: 'form-refresh' } %>
-      </td>
-    </tr>
-  </table>
-</div>
+          <% end %>
+          <%= turbo_frame_tag "suggest_tag", src: new_taggable_tag_path(taggable_type: :bank_transaction, taggable_id: bank_transaction.id, suggest: true) %>
+          <%= turbo_frame_tag "new_tag", src: new_taggable_tag_path(taggable_type: :bank_transaction, taggable_id: bank_transaction.id) %>
+        </td>
+      </tr>
+    </table>
+  </div>
+<% end %>

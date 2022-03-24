@@ -20,8 +20,12 @@ Rails.application.routes.draw do
   #delete ':taggable_type/:taggable_id/tags/:id', to: 'tags#destroy'
   
   resources :bank_transactions do
+    member do
+      get :approval
+    end
     collection do
       get :random_untagged
+      get :random_unreviewed
     end
   end
 

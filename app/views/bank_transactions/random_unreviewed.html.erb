@@ -1,0 +1,11 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Transaction Details</h1>
+<hr class='my-4'/>
+<% if @bank_transaction.present? %>
+  <%= render @bank_transaction %>
+<% end %>
+<hr class='my-8'/>
+<div>
+  <%= link_to "Find another unreviewed", random_unreviewed_bank_transactions_path, class: 'button button-primary' %>
+</div>

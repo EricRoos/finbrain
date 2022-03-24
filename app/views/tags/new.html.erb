@@ -1,5 +1,4 @@
 <h1>New tag</h1>
-
 <%= turbo_frame_tag 'new_tag' do %>
   <%= render partial: "form", locals: { taggable: @taggable, tag: @tag } %>
 <% end %>

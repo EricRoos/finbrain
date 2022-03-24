@@ -1,0 +1,16 @@
+<%= turbo_frame_tag (dom_id(@bank_transaction) + 'approval'), data: { action: 'turbo:submit-end->form-refresh#refresh' , controller: 'form-refresh' } do %>
+  <%= form_with(model: @bank_transaction) do |form| %>
+    <%= form.hidden_field :reviewed, value: !@bank_transaction.reviewed %>
+    <% if @bank_transaction.reviewed %>
+      <%= form.submit "Unapprove", class: 'button bg-red-500' %>
+    <% else %>
+      <% disabled = @bank_transaction.tags.count.zero? %>
+      <% if disabled %>
+        <p class='text-red-500'>
+          * Apply tags before approving
+        </p>
+      <% end %>
+      <%= form.submit "Approve", class: 'button disabled:bg-gray-200 bg-green-500', disabled: disabled %>
+    <% end %>
+  <% end %>
+<% end %>

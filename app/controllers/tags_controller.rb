@@ -29,7 +29,17 @@ class TagsController < ApplicationController
   def create
     @tag = Tag.new(tag_params)
     if @taggable.tag_with(@tag.value)
-      redirect_to taggable_tags_path(taggable_type: @taggable.class.to_s.underscore, taggable_id: @taggable.id), notice: "Tag was successfully created."
+      respond_to do |format|
+        format.html do
+          redirect_to taggable_tags_path(taggable_type: @taggable.class.to_s.underscore, taggable_id: @taggable.id), notice: "Tag was successfully created."
+        end
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.replace(@taggable, partial: 'bank_transactions/bank_transaction', locals: { bank_transaction: @taggable })
+          ]
+        end
+      end
+
     else
       render :new, status: :unprocessable_entity
     end
@@ -48,7 +58,17 @@ class TagsController < ApplicationController
   def destroy
     if @taggable.present?
       TagRelation.where(tag: @tag, taggable: @taggable).destroy_all
-      redirect_to taggable_tags_path(taggable_type: @taggable.class.to_s.underscore, taggable_id: @taggable.id), notice: "Tag was successfully removed."
+      respond_to do |format|
+        format.html do
+          redirect_to taggable_tags_path(taggable_type: @taggable.class.to_s.underscore, taggable_id: @taggable.id), notice: "Tag was successfully removed."
+        end
+
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.replace(@taggable, partial: 'bank_transactions/bank_transaction', locals: { bank_transaction: @taggable })
+          ]
+        end
+      end
     else
       Tag.find(params[:id]).destroy
       redirect_to request.referer, notice: 'Tag removed'
