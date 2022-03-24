@@ -14,6 +14,23 @@
   </head>
 
   <body>
+    <!-- component -->
+    <nav class="flex items-center justify-between flex-wrap bg-blue-500 p-6 mb-4">
+      <div class="flex items-center flex-shrink-0 text-white mr-6">
+        <span class="font-semibold tracking-tight">Fin Brain</span>
+      </div>
+      <div class="block lg:hidden">
+        <button class="flex items-center px-3 py-2 border rounded text-white border-teal-400 hover:text-white hover:border-white">
+        Fin Brain
+        </button>
+      </div>
+      <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
+        <div class="lg:flex-grow">
+          <%= link_to 'Transactions', bank_transactions_path, class:"block mt-4 lg:inline-block lg:mt-0 text-white hover:text-white mr-4" %>
+          <%= link_to 'Tag Manager', tag_manager_path, class:"block mt-4 lg:inline-block lg:mt-0 text-white hover:text-white mr-4" %>
+        </div>
+      </div>
+    </nav>
     <main class='container p-4 md:p-0'>
       <%= yield %>
     </main>
