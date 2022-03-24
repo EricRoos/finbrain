@@ -49,7 +49,16 @@ class BankTransactionsController < ApplicationController
   # PATCH/PUT /bank_transactions/1
   def update
     if @bank_transaction.update(bank_transaction_params)
-      redirect_to request.referer, notice: "Bank transaction was successfully updated."
+      respond_to do |format|
+        format.html do
+          redirect_to request.referer, notice: "Bank transaction was successfully updated."
+        end
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.replace(@bank_transaction, partial: 'bank_transactions/bank_transaction', locals: { bank_transaction: @bank_transaction})
+          ]
+        end
+      end
     else
       render :edit, status: :unprocessable_entity
     end

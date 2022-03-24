@@ -2,12 +2,14 @@
 
 <h1>Bank transaction lists</h1>
 
-<div id="bank_transaction_lists">
+<div id="bank_transaction_lists" class='grid divide-x divide-gray-100'>
   <% @bank_transaction_lists.each do |bank_transaction_list| %>
-    <%= render bank_transaction_list %>
-    <p>
-      <%= link_to "Show this bank transaction list", bank_transaction_list %>
-    </p>
+    <div class='grid-cols-2 grid'>
+      <%= render bank_transaction_list %>
+      <div>
+        <%= link_to "Show", bank_transaction_list %>
+      </div>
+    </div>
   <% end %>
 </div>
 

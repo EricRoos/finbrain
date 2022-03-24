@@ -4,6 +4,13 @@
 <hr class='mt-4'/>
 <div class='flex flex-col md:flex-row divide-x divide-gray-200'>
   <div class='w-full md:w-1/5 flex gap-4 flex-col divide-y divide-gray-200'>
+    <div class='flex flex-col gap-4 p-2'>
+      <%= link_to "Upload Transactions", new_bank_transaction_list_path, class: 'button button-primary' %>
+      <%= link_to "Add Transaction", new_bank_transaction_path, class: 'button button-primary' %>
+      <%= link_to "Search Transactions", bank_transactions_path, class: 'button button-primary' %>
+      <%= link_to "Tag Random", random_untagged_bank_transactions_path, class: 'button button-primary' %>
+      <%= link_to "Needs approving", random_unreviewed_bank_transactions_path, class: 'button button-primary' %>
+    </div>
     <div class='p-2'>
       <h2>Visualize</h2>
       <ul>
@@ -31,12 +38,6 @@
           <li><%= link_to tag.value, bank_transactions_path(tags: these_tags.concat([tag.id])) %></li>
         <% end %>
       </ul>
-    </div>
-    <div class='flex flex-col gap-4 p-2'>
-      <%= link_to "Upload Transactions", new_bank_transaction_list_path, class: 'button button-primary' %>
-      <%= link_to "Add Transaction", new_bank_transaction_path, class: 'button button-primary' %>
-      <%= link_to "Search Transactions", bank_transactions_path, class: 'button button-primary' %>
-      <%= link_to "Tag Random", random_untagged_bank_transactions_path, class: 'button button-primary' %>
     </div>
   </div>
   <%= turbo_frame_tag 'bank_transactions', target: '_top' do %>
