@@ -19,7 +19,8 @@ class BankTransaction < ApplicationRecord
 
 
   def analyze_description
-    nlp_conn = Faraday.new(url: 'http://localhost:9000')
+    nlp_url = ENV.fetch('NLP_URL') { 'http://localhost:9000' }
+    nlp_conn = Faraday.new(url: nlp_url)
     response = nlp_conn.post('/?properties={"annotators":"ner","outputFormat":"json"}') do |req|
       req.body = description.gsub(/PURCHASE AUTHORIZED ON/, '')
     end

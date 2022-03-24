@@ -86,4 +86,4 @@ gem "draper", "~> 4.0"
 
 gem "string-similarity", "~> 2.1"
 
-gem "sidekiq", "~> 6.4"
+gem "sidekiq", "~> 6.4.1"
