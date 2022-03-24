@@ -7,5 +7,5 @@
 <% end %>
 <hr class='my-8'/>
 <div>
-  <%= link_to "Find another unreviewed", random_unreviewed_bank_transactions_path, class: 'button button-primary' %>
+  <%= link_to "Find another unreviewed (#{BankTransaction.not_reviewed.count})", random_unreviewed_bank_transactions_path, class: 'button button-primary' %>
 </div>
