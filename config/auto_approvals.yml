@@ -1,0 +1,115 @@
+auto_approved:
+  - pattern: UBER EATS%
+    tags:
+      - fast-food
+  - pattern: CENTRAL MARKET%
+    tags:
+      - grocery
+  - pattern: CAPITAL ONE ONLINE PMT%
+    tags:
+      - CCPayment
+  - pattern: LOAF N JU%
+    tags:
+      - Colorado
+      - Grocery
+  - pattern: MED*BAYLOR%
+    tags:
+      - medical
+  - pattern: PETSMART%
+    tags:
+      - pet
+  - pattern: Amazon.com
+    tags:
+      - Amazon
+  - pattern: JACK IN THE BOX%
+    tags:
+      - fast-food
+  - pattern: OVERDRAFT FEE
+    tags:
+      - overdraft fee
+  - pattern: SUMMIT UTILITIES%
+    tags:
+      - Colorado
+      - Utilities
+  - pattern: UBER TRIP%
+    tags:
+      - Uber
+  - pattern: %FERNANDO S MIDWAY%
+    tags:
+      - restaraunt
+  - pattern: NON-WELLS FARGO ATM%
+    tags:
+      - atm
+  - pattern: NON-WF%ATM%
+    tags:
+      - atm
+  - pattern: VENMO%
+    tags:
+      - venmo
+  - pattern: INTERMOUNTAIN RU%
+    tags:
+      - Colorado
+      - Utilitiy
+  - pattern: LA VENTANA%
+    tags:
+      - take-out
+  - pattern: RECURRING TRANSFER%
+    tags:
+      - transfer
+  - pattern: BAREFOOT%
+    tags:
+      - clothes
+  - pattern: ROUNDUP SALOON%
+    tags:
+      - Alcohol
+  - pattern: %Village Bakin%
+    tags:
+      - fast-food
+  - pattern: CHICK-FIL-A%
+    tags:
+      - fast-food
+  - pattern: AMZN%
+    tags:
+      - Amazon
+  - pattern: %BRAUMS%
+    tags:
+      - fast-food
+  - pattern: CVS%
+    tags:
+      - medical
+  - pattern: ONLINE TRANSFER%
+    tags:
+      - transfer
+  - pattern: 'CHECK #%'
+    tags:
+      - check
+  - pattern: TFK DALLAS%
+    tags:
+      - fast-food
+  - pattern: MARSHALLS%
+    tags:
+      - clothes
+  - pattern: ATMOS%
+    tags:
+      - Utility
+      - dallas
+  - pattern: EXXON%
+    tags:
+      - gas
+  - pattern: TARGET%
+    tags:
+      - target
+  - pattern: MEDVET%
+    tags:
+      - vet
+      - pet
+  - pattern: LOWE%
+    tags:
+      - HomeMaintenance
+  - pattern: THE HOME DEPOT%
+    tags:
+      - HomeDepot
+      - HomeMaintenance
+
+
+

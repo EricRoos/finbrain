@@ -1,5 +1,5 @@
 class BankTransactionsController < ApplicationController
-  before_action :set_bank_transaction, only: %i[ show edit update destroy approval ]
+  before_action :set_bank_transaction, only: %i[ show edit update destroy approval similar tag_similar approve_similar]
 
   def random_untagged
     @bank_transaction = BankTransaction.left_outer_joins(:tag_relations).where("tag_relations.id is null").last(50).shuffle.first
@@ -7,6 +7,34 @@ class BankTransactionsController < ApplicationController
 
   def random_unreviewed
     @bank_transaction = BankTransaction.not_reviewed.limit(30).shuffle.first
+  end
+
+  def similar
+    @threshold = (params[:threshold] || "0.90").to_f
+    @similar_transactions = @bank_transaction.similar_transactions(@threshold).includes(:tags)
+  end
+
+  def tag_similar
+    @threshold = (params[:threshold] || "0.90").to_f
+    @similar_transactions = @bank_transaction.similar_transactions(@threshold).includes(:tags)
+    @similar_transactions.each do |transaction|
+      transaction.tags.destroy_all
+      @bank_transaction.tags.each do |tag|
+        transaction.tag_with(tag.value)
+      end
+    end
+    redirect_to similar_bank_transaction_path(@bank_transaction, threshold: @threshold)
+  end
+
+  def approve_similar
+    @threshold = (params[:threshold] || "0.90").to_f
+    @similar_transactions = @bank_transaction.similar_transactions(@threshold).includes(:tags)
+    @similar_transactions.each do |transaction|
+      transaction.reviewed = true
+      transaction.save
+    end
+    redirect_to similar_bank_transaction_path(@bank_transaction, threshold: @threshold)
+
   end
 
   # GET /bank_transactions

@@ -21,6 +21,15 @@ class BankTransaction < ApplicationRecord
   end
 
 
+  def similar_transactions(threshold = 0.90)
+    BankTransaction
+      .joins("inner join similarity_matches on similarity_matches.destination_id = bank_transactions.id")
+      .where("similarity_matches.source_id = ?", self.id)
+      .where("score > ?", threshold)
+      .where("bank_transactions.id != ?", id)
+      .order("score asc")
+  end
+
   def analyze_description
     nlp_url = ENV.fetch('NLP_URL') { 'http://localhost:9000' }
     nlp_conn = Faraday.new(url: nlp_url)

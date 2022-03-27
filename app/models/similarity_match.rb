@@ -7,8 +7,8 @@ class SimilarityMatch < ApplicationRecord
   before_validation :calculate_score
 
   def calculate_score
-    source_str = source.analyzed_tokens.sort.join(" ")
-    destination_str = destination.analyzed_tokens.sort.join(" ")
+    source_str = source.description.gsub(/[A-Z]\d+ CARD \d{4}/, '').strip
+    destination_str = destination.description.gsub(/[A-Z]\d+ CARD \d{4}/, '').strip
     self.score = String::Similarity.cosine(source_str, destination_str)
   end
 end

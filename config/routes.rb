@@ -22,6 +22,9 @@ Rails.application.routes.draw do
   resources :bank_transactions do
     member do
       get :approval
+      get :similar
+      post :tag_similar
+      post :approve_similar
     end
     collection do
       get :random_untagged

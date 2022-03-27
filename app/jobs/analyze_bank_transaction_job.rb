@@ -6,8 +6,17 @@ class AnalyzeBankTransactionJob < ApplicationJob
     bank_transaction.analyzed_tokens.each do |token|
       bank_transaction.tag_with(token)
     end
-    #BankTransaction.all.each do |b|
-    #  ComputeSimilarityJob.perform_later(bank_transaction, b)
-    #end
+
+    matches = []
+    BankTransaction.find_in_batches(batch_size: 20_000) do |group|
+      group.each do |b|
+        s = SimilarityMatch.new(source: b, destination: bank_transaction)
+        s.calculate_score
+        if s.source && s.destination
+          matches << s.as_json.slice("source_id", "destination_id", "score")
+        end
+      end
+    end
+    SimilarityMatch.insert_all matches
   end
 end

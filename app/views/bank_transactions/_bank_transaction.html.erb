@@ -53,4 +53,5 @@
       </tr>
     </table>
   </div>
+  <%= turbo_frame_tag (dom_id(bank_transaction) + "_similar"), src: similar_bank_transaction_path(bank_transaction) %>
 <% end %>

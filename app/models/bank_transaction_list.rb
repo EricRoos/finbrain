@@ -21,4 +21,5 @@ class BankTransactionList < ApplicationRecord
     self.save
     bank_transactions
   end
+
 end
