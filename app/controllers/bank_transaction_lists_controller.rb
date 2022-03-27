@@ -53,6 +53,6 @@ class BankTransactionListsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def bank_transaction_list_params
-      params.require(:bank_transaction_list).permit(:source_file)
+      params.require(:bank_transaction_list).permit(:source_file, :source_type)
     end
 end
