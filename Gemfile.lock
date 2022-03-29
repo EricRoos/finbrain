@@ -390,6 +390,7 @@ DEPENDENCIES
   database_cleaner
   debug
   draper (~> 4.0)
+  factory_bot (~> 6.2)
   factory_bot_rails (~> 6.2)
   faker (~> 2.19)
   faraday (~> 2.2)
@@ -415,4 +416,4 @@ RUBY VERSION
    ruby 3.0.0p0
 
 BUNDLED WITH
-   2.2.15
+   2.3.7

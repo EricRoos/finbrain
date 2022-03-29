@@ -10,12 +10,12 @@ class BankTransactionsController < ApplicationController
   end
 
   def similar
-    @threshold = (params[:threshold] || "0.90").to_f
+    @threshold = (params[:threshold] || "0.95").to_f
     @similar_transactions = @bank_transaction.similar_transactions(@threshold).includes(:tags)
   end
 
   def tag_similar
-    @threshold = (params[:threshold] || "0.90").to_f
+    @threshold = (params[:threshold] || "0.95").to_f
     @similar_transactions = @bank_transaction.similar_transactions(@threshold).includes(:tags)
     @similar_transactions.each do |transaction|
       transaction.tags.destroy_all

@@ -87,3 +87,5 @@ gem "draper", "~> 4.0"
 gem "string-similarity", "~> 2.1"
 
 gem "sidekiq", "~> 6.4.1"
+
+gem "factory_bot", "~> 6.2"

@@ -23,10 +23,12 @@ class BankTransaction < ApplicationRecord
 
   def similar_transactions(threshold = 0.90)
     BankTransaction
+      .select("bank_transactions.*, score as similarity_score")
       .joins("inner join similarity_matches on similarity_matches.destination_id = bank_transactions.id")
       .where("similarity_matches.source_id = ?", self.id)
       .where("score > ?", threshold)
       .where("bank_transactions.id != ?", id)
+      .group(:id, :score)
       .order("score asc")
   end
 
