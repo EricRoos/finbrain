@@ -12,6 +12,8 @@ class BankTransactionsController < ApplicationController
   def similar
     @threshold = (params[:threshold] || "0.95").to_f
     @similar_transactions = @bank_transaction.similar_transactions(@threshold).includes(:tags)
+    @similar_transactions_count = @similar_transactions.count
+    @similar_transactions = @similar_transactions.select("bank_transactions.*", "score as match_score")
   end
 
   def tag_similar

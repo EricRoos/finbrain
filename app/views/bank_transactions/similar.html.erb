@@ -1,6 +1,6 @@
 <%= turbo_frame_tag (dom_id(@bank_transaction) + "_similar") do %>
   <div>
-    <div class='text-lg font-bold'>Similar Transactions (<%= @similar_transactions.count(:id) %>)</div>
+    <div class='text-lg font-bold'>Similar Transactions (<%= @similar_transactions_count %>)</div>
     <%= form_with(url: similar_bank_transaction_path(@bank_transaction), method: :get) do |form| %>
       <%= form.label :threshold %>
       <%= form.number_field :threshold, step: ".01", value: @threshold %>
@@ -19,6 +19,7 @@
     <table class='table'>
       <thead>
         <tr class>
+          <th>Match</th>
           <th>Posted At</th>
           <th>Amount</th>
           <th>Description</th>
@@ -31,17 +32,20 @@
         <% @similar_transactions.map(&:decorate).each do |similar_bank_transaction| %>
           <% tag_str = similar_bank_transaction.tags.pluck(:value).join(", ") %>
           <tr id="<%= dom_id(similar_bank_transaction) %>">
+            <td><%= (similar_bank_transaction.match_score * 100).to_i %>%</td>
             <td><%= similar_bank_transaction.posted_at %></td>
             <td><%= similar_bank_transaction.total %></td>
             <td><div title="<%= similar_bank_transaction.description %>" class='max-w-[10rem] md:max-w-[250px] truncate'><%= similar_bank_transaction.description %></div></td>
             <td>
-              <% if similar_bank_transaction.reviewed %>
+              <% if similar_bank_transaction.reviewed == true %>
                 <span class='text-green-500'>
+                  Yes
+                </span>
               <% else %>
                 <span class='text-red-500'>
+                  No
+                </span>
               <% end %>
-                  <%= similar_bank_transaction.reviewed %>
-              </span>
             </td>
             <td><div title="<%= tag_str %>" class='max-w-[10rem] truncate'><%= tag_str %></div></td>
             <td><%= link_to 'View', similar_bank_transaction %></td>
