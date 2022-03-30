@@ -1,6 +1,6 @@
 <%= turbo_frame_tag (dom_id(@bank_transaction) + "_similar") do %>
   <div>
-    <div class='text-lg font-bold'>Similar Transactions (<%= @similar_transactions.count %>)</div>
+    <div class='text-lg font-bold'>Similar Transactions (<%= @similar_transactions.select("*").count %>)</div>
     <%= form_with(url: similar_bank_transaction_path(@bank_transaction), method: :get) do |form| %>
       <%= form.label :threshold %>
       <%= form.number_field :threshold, step: ".01", value: @threshold %>
