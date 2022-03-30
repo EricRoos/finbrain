@@ -11,4 +11,12 @@ class SimilarityMatch < ApplicationRecord
     destination_str = destination.description.gsub(/[A-Z]\d+ CARD \d{4}/, '').strip
     self.score = String::Similarity.cosine(source_str, destination_str)
   end
+
+  def build_bidirection
+    params = {
+      destination: source,
+      source: destination
+    }
+    SimilarityMatch.new(params.merge(score: self.score))
+  end
 end
